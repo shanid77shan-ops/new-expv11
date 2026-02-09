@@ -168,7 +168,7 @@ const GeminiFileUpload: React.FC<GeminiFileUploadProps> = ({ onConfirm }) => {
               onClick={() => onConfirm(result)}
               className="w-full py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all shadow-lg"
             >
-              <PlusCircle size={16} /> Sync to Ledger
+              <PlusCircle size={16} /> Add Ledger
             </button>
           </div>
         </div>

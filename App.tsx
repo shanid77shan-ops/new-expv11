@@ -90,7 +90,7 @@ const WeddingIcon = ({ size = 24, className = "" }: { size?: number, className?:
 
     {/* Green Serrated Seal */}
     <path 
-      d="M95 20l-1.5-3.5-3.5-1.5 1.5-3.5-1.5-3.5-3.5-1.5 1.5-3.5-1.5-3.5-3.5-1.5 1.5-3.5-1.5-3.5-3.5-1.5 1.5-3.5L78 1l-3.5 1.5L71 1l-3.5 1.5L64 1l-3.5 1.5L59 1l-3.5 1.5L54 1l-3.5 1.5L49 1l-3.5 1.5L44 1l-3.5 1.5L39 1l-3.5 1.5L34 1l-3.5 1.5L29 1l-3.5 1.5L24 1l-3.5 1.5L19 1l-3.5 1.5L14 1l-3.5 1.5L9 1 7.5 4.5 4 6l1.5 3.5-1.5 3.5 3.5 1.5-1.5 3.5 3.5 1.5-1.5 3.5 3.5 1.5-1.5 3.5 3.5 1.5-1.5 3.5 3.5 1.5-1.5 3.5 3.5 1.5 1.5 3.5L13 36l3.5 1.5L18 41l3.5 1.5L23 46l3.5 1.5L28 51l3.5 1.5L33 56l3.5 1.5L38 61l3.5 1.5L43 66l3.5 1.5L48 71l3.5 1.5L53 76l3.5 1.5L58 81l3.5 1.5L63 86l3.5 1.5L68 91l3.5 1.5L73 96l3.5-1.5 3.5 1.5 1.5-3.5 3.5-1.5-1.5-3.5 3.5-1.5-1.5-3.5 3.5-1.5-1.5-3.5 3.5-1.5-1.5-3.5 3.5-1.5-1.5-3.5 3.5-1.5-1.5-3.5-3.5-1.5L95 76l1.5-3.5L100 71l-1.5-3.5 1.5-3.5-3.5-1.5 1.5-3.5-3.5-1.5 1.5-3.5-3.5-1.5 1.5-3.5-3.5-1.5 1.5-3.5-3.5-1.5 1.5-3.5-3.5-1.5z" 
+      d="M95 20l-1.5-3.5-3.5-1.5 1.5-3.5-1.5-3.5-3.5-1.5 1.5-3.5-1.5-3.5-3.5-1.5 1.5-3.5-1.5-3.5-3.5-1.5 1.5-3.5L78 1l-3.5 1.5L71 1l-3.5 1.5L64 1l-3.5 1.5L64 1l-3.5 1.5L59 1l-3.5 1.5L54 1l-3.5 1.5L49 1l-3.5 1.5L44 1l-3.5 1.5L39 1l-3.5 1.5L34 1l-3.5 1.5L29 1l-3.5 1.5L24 1l-3.5 1.5L19 1l-3.5 1.5L14 1l-3.5 1.5L9 1 7.5 4.5 4 6l1.5 3.5-1.5 3.5 3.5 1.5-1.5 3.5 3.5 1.5-1.5 3.5 3.5 1.5-1.5 3.5 3.5 1.5-1.5 3.5 3.5 1.5-1.5 3.5 3.5 1.5 1.5 3.5L13 36l3.5 1.5L18 41l3.5 1.5L23 46l3.5 1.5L28 51l3.5 1.5L33 56l3.5 1.5L38 61l3.5 1.5L43 66l3.5 1.5L48 71l3.5 1.5L53 76l3.5 1.5L58 81l3.5 1.5L63 86l3.5 1.5L68 91l3.5 1.5L73 96l3.5-1.5 3.5 1.5 1.5-3.5 3.5-1.5-1.5-3.5 3.5-1.5-1.5-3.5 3.5-1.5-1.5-3.5 3.5-1.5-1.5-3.5 3.5-1.5-1.5-3.5 3.5-1.5-1.5-3.5-3.5-1.5L95 76l1.5-3.5L100 71l-1.5-3.5 1.5-3.5-3.5-1.5 1.5-3.5-3.5-1.5 1.5-3.5-3.5-1.5 1.5-3.5-3.5-1.5 1.5-3.5-3.5-1.5 1.5-3.5-3.5-1.5z" 
       fill="#00E600" 
       transform="scale(0.35) translate(180, 5)"
     />
@@ -678,29 +678,46 @@ export default function WeddingSyncApp() {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {expenses.filter(e => filterCategory === "All" || e.category === filterCategory).map(exp => (
-                    <div key={exp.id} className="bg-slate-50 px-4 py-3.5 rounded-2xl border border-transparent hover:border-slate-100 hover:bg-white transition-all flex items-center justify-between group">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-sm bg-white text-slate-300 group-hover:text-rose-500`}>
-                          <Receipt size={14} />
+                  {expenses.filter(e => filterCategory === "All" || e.category === filterCategory).map(exp => {
+                    const isFullyPaid = (Number(exp.totalAmount) || 0) - (Number(exp.advancePaid) || 0) <= 0;
+                    const isIncome = exp.name.startsWith("(INCOME)");
+                    
+                    return (
+                      <div key={exp.id} className="bg-slate-50 px-4 py-3.5 rounded-2xl border border-transparent hover:border-slate-100 hover:bg-white transition-all flex items-center justify-between group">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-sm ${
+                            isIncome ? "bg-amber-50 text-amber-500" : 
+                            isFullyPaid ? "bg-emerald-50 text-emerald-500" : 
+                            "bg-amber-100/50 text-amber-600"
+                          }`}>
+                            {isIncome ? <PlusCircle size={16} /> : isFullyPaid ? <CheckCircle2 size={16} /> : <Clock size={16} />}
+                          </div>
+                          <div>
+                            <h4 className="font-black text-xs text-slate-900 leading-tight truncate max-w-[140px]">{exp.name}</h4>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className="text-[8px] font-black uppercase text-slate-400 tracking-tighter bg-white px-1.5 py-0.5 rounded-md">{exp.category}</span>
+                              <span className="text-[8px] font-black uppercase text-indigo-500 tracking-tighter bg-indigo-50/50 px-1.5 py-0.5 rounded-md flex items-center gap-0.5"><Wallet size={8} /> {exp.account}</span>
+                              {!isFullyPaid && !isIncome && (
+                                <span className="text-[7px] font-black text-rose-500 uppercase bg-rose-50 px-1.5 py-0.5 rounded-md">Pending</span>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <h4 className="font-black text-xs text-slate-900 leading-tight truncate max-w-[140px]">{exp.name}</h4>
-                          <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="text-[8px] font-black uppercase text-slate-400 tracking-tighter bg-white px-1.5 py-0.5 rounded-md">{exp.category}</span>
-                            <span className="text-[8px] font-black uppercase text-indigo-500 tracking-tighter bg-indigo-50/50 px-1.5 py-0.5 rounded-md flex items-center gap-0.5"><Wallet size={8} /> {exp.account}</span>
+                        <div className="text-right">
+                          <p className="font-black text-sm text-slate-900">${(Number(exp.advancePaid) || 0).toLocaleString()}</p>
+                          <div className="flex gap-1 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                            {!isFullyPaid && !isIncome && (
+                              <button onClick={() => settleExpense(exp)} className="p-1.5 bg-emerald-50 rounded-lg text-emerald-600 hover:bg-emerald-100 flex items-center gap-1">
+                                <Check size={12} /> <span className="text-[8px] font-black uppercase">Settle</span>
+                              </button>
+                            )}
+                            <button onClick={() => openAddModal(exp)} className="p-1.5 bg-blue-50 rounded-lg text-blue-600 hover:bg-blue-100"><Edit2 size={12} /></button>
+                            <button onClick={() => setDeleteConfirmation({ isOpen: true, type: "expense", id: exp.id, name: exp.name })} className="p-1.5 bg-rose-50 rounded-lg text-rose-500 hover:bg-rose-100"><Trash2 size={12} /></button>
                           </div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="font-black text-sm text-slate-900">${(Number(exp.advancePaid) || 0).toLocaleString()}</p>
-                        <div className="flex gap-1 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button onClick={() => openAddModal(exp)} className="p-1.5 bg-blue-50 rounded-lg text-blue-600"><Edit2 size={12} /></button>
-                          <button onClick={() => setDeleteConfirmation({ isOpen: true, type: "expense", id: exp.id, name: exp.name })} className="p-1.5 bg-rose-50 rounded-lg text-rose-500"><Trash2 size={12} /></button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -875,7 +892,9 @@ export default function WeddingSyncApp() {
                  </div>
                </form>
             </div>
-            <div className="px-6 py-6 bg-white border-t border-slate-50"><button form="ledger-form" type="submit" className="w-full py-4 bg-slate-900 text-white rounded-[1.25rem] font-black text-sm uppercase tracking-widest shadow-xl shadow-rose-200">Sync to Ledger</button></div>
+            <div className="px-6 py-6 bg-white border-t border-slate-50"><button form="ledger-form" type="submit" className="w-full py-4 bg-slate-900 text-white rounded-[1.25rem] font-black text-sm uppercase tracking-widest shadow-xl shadow-rose-200">
+              {editingExpense ? 'Update Ledger' : 'Add Ledger'}
+            </button></div>
           </div>
         </div>
       )}
