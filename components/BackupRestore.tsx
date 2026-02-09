@@ -154,15 +154,15 @@ export const BackupRestore: React.FC<BackupRestoreProps> = ({ showToast }) => {
 
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
-        <div className="flex items-start gap-3 mb-4">
-          <div className="p-2 bg-rose-50 rounded-xl text-rose-500 shadow-sm shrink-0">
-             <Database size={18} />
+      <div className="bg-white rounded-2xl border border-slate-100 p-3 shadow-sm">
+        <div className="flex items-start gap-3 mb-3">
+          <div className="p-1.5 bg-rose-50 rounded-xl text-rose-500 shadow-sm shrink-0">
+             <Database size={16} />
           </div>
           <div>
-            <h4 className="text-[11px] font-black text-slate-800 uppercase tracking-widest">Local Backup</h4>
-            <p className="text-[8px] text-slate-400 mt-0.5 leading-tight font-bold uppercase tracking-tight">
-              Export data to a JSON file or restore from a previous vault.
+            <h4 className="text-[10px] font-black text-slate-800 uppercase tracking-widest leading-none">Local Backup</h4>
+            <p className="text-[7px] text-slate-400 mt-1 leading-tight font-bold uppercase tracking-tight">
+              Export/Import JSON vault.
             </p>
           </div>
         </div>
@@ -170,14 +170,14 @@ export const BackupRestore: React.FC<BackupRestoreProps> = ({ showToast }) => {
         <div className="grid grid-cols-2 gap-2">
           <button
               onClick={handleExport}
-              className="flex items-center justify-center gap-2 py-2 bg-slate-900 text-white rounded-xl transition-all active:scale-95 group"
+              className="flex items-center justify-center gap-1.5 py-1.5 bg-slate-900 text-white rounded-lg transition-all active:scale-95 group"
           >
-              <Download size={14} />
-              <span className="text-[8px] font-black uppercase tracking-widest">Export</span>
+              <Download size={12} />
+              <span className="text-[7px] font-black uppercase tracking-widest">Export</span>
           </button>
-          <label className="flex items-center justify-center gap-2 py-2 bg-slate-50 border border-slate-100 text-slate-800 rounded-xl transition-all active:scale-95 cursor-pointer">
-              <Upload size={14} className="text-rose-500" />
-              <span className="text-[8px] font-black uppercase tracking-widest">Import</span>
+          <label className="flex items-center justify-center gap-1.5 py-1.5 bg-slate-50 border border-slate-100 text-slate-800 rounded-lg transition-all active:scale-95 cursor-pointer">
+              <Upload size={12} className="text-rose-500" />
+              <span className="text-[7px] font-black uppercase tracking-widest">Import</span>
               <input ref={fileInputRef} type="file" accept=".json" onChange={handleFileSelection} className="hidden" />
           </label>
         </div>

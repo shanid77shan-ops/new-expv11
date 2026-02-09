@@ -1024,7 +1024,7 @@ export default function WeddingSyncApp() {
         {activeTab === 'bank' && <div className="space-y-6 animate-in fade-in duration-200"><BankStatementAnalyzer activeProfileId={activeProfile.id} accounts={bankAccounts} setAccounts={setBankAccounts} /></div>}
         {activeTab === 'gemini' && <div className="space-y-6 animate-in fade-in duration-200"><section className="bg-blue-50 p-6 rounded-3xl border border-blue-100"><div className="flex items-center gap-2 mb-4"><div className="p-2 bg-blue-100 rounded-xl"><PieChart size={18} className="text-blue-600" /></div><div><h3 className="text-xs font-black text-blue-600 uppercase tracking-widest">AI Bill Scanner</h3><p className="text-[10px] text-blue-400 font-bold uppercase tracking-widest">Powered by Gemini AI</p></div></div><p className="text-xs text-blue-700/80 mb-6 leading-relaxed">Scan your wedding receipts or invoices. Gemini will automatically identify the vendor, date, and amount.</p><GeminiFileUpload onConfirm={handleAISync} /></section></div>}
         {activeTab === 'settings' && (
-          <div className="space-y-8 animate-in fade-in duration-200 pb-10">
+          <div className="space-y-6 animate-in fade-in duration-200 pb-10">
             <section className="bg-rose-50 p-6 rounded-3xl border border-rose-100 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
@@ -1039,9 +1039,9 @@ export default function WeddingSyncApp() {
             
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Funding Sources</h3>
-              <div className="flex gap-2">
-                <input type="text" value={newAccountName} onChange={(e) => setNewAccountName(e.target.value)} placeholder="e.g. Savings, Parent Fund" className="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-bold outline-none focus:border-rose-500 shadow-sm" />
-                <button onClick={handleAddAccount} disabled={!newAccountName.trim()} className="bg-slate-900 text-white p-2 rounded-lg shadow-md active:scale-95 transition-transform"><Plus size={16} /></button>
+              <div className="flex gap-2 max-w-sm">
+                <input type="text" value={newAccountName} onChange={(e) => setNewAccountName(e.target.value)} placeholder="Add source..." className="flex-1 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-[10px] font-bold outline-none focus:border-rose-500 shadow-sm" />
+                <button onClick={handleAddAccount} disabled={!newAccountName.trim()} className="bg-slate-900 text-white p-1.5 rounded-lg shadow-md active:scale-95 transition-transform shrink-0"><Plus size={14} /></button>
               </div>
               <div className="space-y-4">
                 {accounts.map((acc, idx) => {
@@ -1108,9 +1108,9 @@ export default function WeddingSyncApp() {
 
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">User Workspaces</h3>
-              <div className="flex gap-2">
-                <input type="text" value={newProfileName} onChange={(e) => setNewProfileName(e.target.value)} placeholder="New workspace name..." className="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-bold outline-none focus:border-rose-500 shadow-sm" onKeyPress={(e) => e.key === 'Enter' && handleAddProfile()} />
-                <button onClick={handleAddProfile} disabled={!newProfileName.trim()} className="bg-slate-900 text-white p-2 rounded-lg shadow-md active:scale-95 transition-transform"><Plus size={16} /></button>
+              <div className="flex gap-2 max-w-sm">
+                <input type="text" value={newProfileName} onChange={(e) => setNewProfileName(e.target.value)} placeholder="Workspace name..." className="flex-1 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-[10px] font-bold outline-none focus:border-rose-500 shadow-sm" onKeyPress={(e) => e.key === 'Enter' && handleAddProfile()} />
+                <button onClick={handleAddProfile} disabled={!newProfileName.trim()} className="bg-slate-900 text-white p-1.5 rounded-lg shadow-md active:scale-95 transition-transform shrink-0"><Plus size={14} /></button>
               </div>
               <div className="grid grid-cols-1 gap-2">
                 {(profiles || []).map(p => (
