@@ -1,0 +1,7 @@
+{
+  "name": "Copy of v11",
+  "description": "v11",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
